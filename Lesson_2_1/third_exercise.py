@@ -5,21 +5,24 @@ import math
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.wait import WebDriverWait
 
-
 def calc(x):
   return str(math.log(abs(12*math.sin(int(x)))))
 
 
 try:
-    link = "https://suninjuly.github.io/math.html"
+    link = "https://suninjuly.github.io/get_attribute.html"
     browser = webdriver.Chrome()
     browser.get(link)
-    x_element = browser.find_element(By.CSS_SELECTOR, 'input_value')
-    x = x_element.text
-    y = calc(x)
 
+    treasure_icon = browser.find_element(By.ID, 'treasure')
+    treasure_icon_attribute = treasure_icon.get_attribute('valuex')
+
+    y = calc(treasure_icon_attribute)
     answer_input = browser.find_element(By.ID, "answer")
     answer_input.send_keys(y)
+
+    i_am_robot = browser.find_element(By.ID,'robotCheckbox')
+    i_am_robot.click()
 
     robots_rule_radio = browser.find_element(By.ID, "robotsRule")
     robots_rule_radio.click()
